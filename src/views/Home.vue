@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <BaseCard>
+    <TaskForm @save-data="saveData" />
+  </BaseCard>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import TaskForm from "../components/task/TaskForm.vue";
+import BaseCard from "../components/ui/BaseCard.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    TaskForm,
+    BaseCard
+  },
+  methods: {
+    saveData(data) {
+      this.$store.dispatch("saveTask", data);
+      this.$router.replace("tasklist");
+      this.$store.dispatch("loadTasks");
+    }
   }
 };
 </script>
